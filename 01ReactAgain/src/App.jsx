@@ -6,8 +6,8 @@ function App() {
 
   function addValue(){
     setCounter((prev) =>  {
-       const next = prev+1;
-       return next;
+       const nex = prev+1;
+       return nex;
     });
   }
 
