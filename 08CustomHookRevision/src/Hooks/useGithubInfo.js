@@ -5,7 +5,7 @@ const useGithubInfo = (user) => {
   console.log(user);
   useEffect(() => {
     if (user) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${user.toLowerCase()}`)
+      fetch(`https://api.github.com/users/${user.toLowerCase()}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("GitHub user not found");
