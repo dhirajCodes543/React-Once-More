@@ -1,11 +1,12 @@
 import { useState } from "react";
-import useGithubInfo from "./Hooks/useGithubInfo";
+import usePokemoneInfo from "./Hooks/usePokemoneInfo";
+import PokemonCard from "./components/Pokemone";
 
 function App() {
   const [user, setUser] = useState("");
   const [searchedUser, setSearchedUser] = useState("");
 
-  const data = useGithubInfo(searchedUser);
+  const data = usePokemoneInfo(searchedUser);
 
   const getData = (e) => {
     e.preventDefault();
@@ -18,13 +19,13 @@ function App() {
 
   return (
    <>
-      <div className="w-screen h-screen bg-black flex justify-center items-center">
-        <div>
-          <form onSubmit={getData} className="flex space-x-3">
+      <div className="w-screen h-screen bg-black justify-center ">
+        <div className="w-auto flex flex-col justify-center items-center">
+          <form onSubmit={getData} className="flex space-x-3 mt-8">
             <input
               type="text"
               className="bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              placeholder="Enter a Github Username..."
+              placeholder="Enter a Pokemon Name..."
               value={user}
               onChange={(e) => setUser(e.target.value)}
             />
@@ -35,27 +36,9 @@ function App() {
               Search
             </button>
           </form>
-
-          {data.avatar_url && (
-            <div className="p-6 max-w-lg bg-white space-x-4 rounded-2xl flex items-center mt-12">
-              <div className="rounded-xl overflow-clip">
-                <img
-                  className="h-20 w-20"
-                  src={data.avatar_url}
-                  alt="sample"
-                />
-              </div>
-              <div>
-                <div className="text-2xl font-bold">{data.name}</div>
-                <p className="font-medium text-sm">{data.bio}</p>
-                <p className="font-medium text-sm">Followers: {data.followers}</p>
-                <p className="font-medium text-sm">Following: {data.following}</p>
-                <p className="font-medium text-sm">Public Repos: {data.public_repos}</p>
-                <p className="font-medium text-sm">Location: {data.location}</p>
-                <p className="font-medium text-sm">Email: {data.email}</p>
-              </div>
-            </div>
-          )}
+          <div>
+            {data.abilities && <PokemonCard pokemon={data} />}
+          </div>
         </div>
       </div>
    </>
