@@ -41,7 +41,8 @@ class AuthService {
 
       return session;
     } catch (error) {
-      throw new Error("Error in login" + error.message);
+      console.error("Error creating session",error.message)
+        return false;
     }
   }
 
@@ -63,9 +64,7 @@ async logout(){
     try {
         await this.account.deleteSessions();
     } catch (error) {
-        throw new Error(`Error in logging out: ${error.message}`, {
-          cause: error,
-        });
+        console.error("Error logging out",error.message)
     }
   }
 }
